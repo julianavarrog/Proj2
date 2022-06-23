@@ -125,12 +125,20 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="plain" image="retweet-icon" title=""/>
+                                            <connections>
+                                                <action selector="didTapRT:" destination="S2z-6b-dCP" eventType="touchUpInside" id="3eb-5f-CGq"/>
+                                                <action selector="didTapUNRT:" destination="S2z-6b-dCP" eventType="touchUpInside" id="fOY-6r-sx6"/>
+                                            </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hYb-2D-Xhe" userLabel="FavB">
                                             <rect key="frame" x="225" y="147" width="13" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="plain" image="favor-icon" title=""/>
+                                            <connections>
+                                                <action selector="didTapFavorite:" destination="S2z-6b-dCP" eventType="touchUpInside" id="dkH-RD-KAT"/>
+                                                <action selector="didTapUnfavorite:" destination="S2z-6b-dCP" eventType="touchUpInside" id="LBM-xm-cjR"/>
+                                            </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VFv-iX-qmm">
                                             <rect key="frame" x="315" y="143" width="30" height="25"/>
@@ -139,7 +147,7 @@
                                             <buttonConfiguration key="configuration" style="plain" image="message-icon" title=""/>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ciZ-Ch-fcV">
-                                            <rect key="frame" x="106" y="44" width="253" height="91"/>
+                                            <rect key="frame" x="106" y="39" width="253" height="91"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <string key="text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</string>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -235,13 +243,17 @@
                     <navigationItem key="navigationItem" id="1fD-Mg-fbO">
                         <barButtonItem key="leftBarButtonItem" image="close-icon" id="OM3-ng-U1f">
                             <connections>
-                                <action selector="toClose:" destination="Bbh-9M-Fgv" id="aNA-H5-Wfz"/>
+                                <action selector="closeTweet:" destination="Bbh-9M-Fgv" id="06S-El-tAi"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Tweet" id="ln6-5K-5DW"/>
+                        <barButtonItem key="rightBarButtonItem" title="Tweet" id="ln6-5K-5DW">
+                            <connections>
+                                <action selector="didTapPost:" destination="Bbh-9M-Fgv" id="6Qu-sV-iQm"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="detailText" destination="5S0-to-IIS" id="aG2-Gs-c1J"/>
+                        <outlet property="tweetTextBox" destination="5S0-to-IIS" id="cDP-Ng-Jl8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZaU-yf-pQe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -7,14 +7,15 @@
 //
 
 #import "ComposeViewController.h"
+#import "TimelineViewController.h"
 #import "TweetCell.h"
 #import "APIManager.h"
-#import "Tweet.h"
 
 @interface ComposeViewController ()
-@property (strong, nonatomic) IBOutlet UITableView * tweetTableView;
 @property (strong, nonatomic) NSMutableArray * tweets;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (strong, nonatomic) IBOutlet UITableView * tweetTableView;
+@property (nonatomic, readwrite, strong) IBOutlet UITextView *ComposeTweetView;
 
 
 @end
@@ -22,37 +23,38 @@
 @implementation ComposeViewController
 
 
+- (IBAction)closeTweet:(id)sender {
+    [self dismissViewControllerAnimated:true completion:nil];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-   // self.detailText.text = self.tweet.text;
-    
-    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    [self.tweetTableView insertSubview:refreshControl atIndex:0];
-    [refreshControl addTarget:self action:@selector(fechTweets) forControlEvents:UIControlEventValueChanged];
+        
 }
 
-- (void) fechTweets{
+- (IBAction)didTapPost:(id)sender{
         
     // Do any additional setup after loading the view.
     
-    [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
-        if (tweets) {
-            NSLog(@"😎😎😎 Successfully loaded home timeline");
-            for (Tweet *tweet in tweets) {
-               NSString *text = tweet.text;
-               NSLog(@"%@", text);
-                self.tweets = (NSMutableArray *)tweets;
-                [self.tweetTableView reloadData];
-            }
+    [[APIManager shared] postStatusWithText: self.tweetTextBox.text completion:^(Tweet *newTweet, NSError *error) {
+        if (newTweet) {
+            NSLog(@" about to post tweet ");
+            [self.delegate didTweet: newTweet];
         } else {
                 NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
         }
-        [self.refreshControl endRefreshing];
     }];
+    [self.tweetTableView reloadData];
+    [self dismissViewControllerAnimated:true completion:nil];
+
 }
+
+
+
+
+
+
 
 /*
 #pragma mark - Navigation

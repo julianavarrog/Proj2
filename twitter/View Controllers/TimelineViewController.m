@@ -12,9 +12,11 @@
 #import "LoginViewController.h"
 #import "TweetCell.h"
 #import "Tweet.h"
-//#import "CompositeViewController.h"
+#import "ComposeViewController.h"
 
-@interface TimelineViewController () <UITableViewDataSource, UITableViewDelegate>
+
+
+@interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 - (IBAction)didTapLogout:(id)sender;
 @property (strong, nonatomic) IBOutlet UITableView * tweetTableView;
 @property (strong, nonatomic) NSMutableArray * tweets;
@@ -40,7 +42,7 @@
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [self.tweetTableView insertSubview:refreshControl atIndex:0];
     [refreshControl addTarget:self action:@selector(fechTweets) forControlEvents:UIControlEventValueChanged];
-    //[self.refreshControl endRefreshing];
+    [self.refreshControl endRefreshing];
     
 }
 
@@ -60,8 +62,8 @@
         } else {
                 NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
         }
-        [self.refreshControl endRefreshing];
     }];
+    [self.refreshControl endRefreshing];
 }
 
 
@@ -142,17 +144,17 @@
     [[APIManager shared] logout];
 }
 
-/*
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:sender];
-    DetailsViewController *detailsVC = [segue destinationViewController];
-    if (self.isFiltered) {
-        detailsVC.tweet = self.filteredTweets[cellIndexPath.row];
-    } else {
-        detailsVC.tweet = self.tweets[cellIndexPath.row];
-    }
+- (void) didTweet:(Tweet *)tweet{
+    [self.tweets addObject:tweet];
+    [self.tweetTableView reloadData];
 }
-*/
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+   UINavigationController *navigationController = [segue destinationViewController];
+   ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
+   composeController.delegate = self;
+}
 
 
 @end

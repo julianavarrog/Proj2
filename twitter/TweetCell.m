@@ -7,6 +7,9 @@
 //
 
 #import "TweetCell.h"
+#import "Tweet.h"
+#import "TimelineViewController.h"
+#import "UIImageView+AFNetworking.h"
 # import "APIManager.h"
 
 @implementation TweetCell
@@ -21,6 +24,16 @@
     
 }
 
+-(IBAction)didTap:(id)sender{
+    [[APIManager shared] unrt:self.tweet completion:^(Tweet *newTweet, NSError *error) {
+        if (newTweet) {
+            NSLog(@" about to post tweet ");
+        } else {
+                NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
+        }
+    }];
+}
+
 - (void) refreshData{
     
     self.profileName.text = self.tweet.user.name;
@@ -33,7 +46,6 @@
     
     
     // numbers
-   // self.profileReply.text = [NSString stringWithFormat:@"%i", self.tweet.replyCount];
     self.profileRetweet.text = [NSString stringWithFormat:@"%i", self.tweet.retweetCount];
     self.profileFavorite.text = [NSString stringWithFormat:@"%i", self.tweet.favoriteCount];
 
@@ -45,7 +57,9 @@
     self.profileImage.image = [UIImage imageWithData:urlData];
     
     
-   // self.profileImage.image = nil;
+   // favorite and retweet
+    self.profileFavorite.text = [@(self.tweet.favoriteCount) stringValue];
+    self.profileRetweet.text = [@(self.tweet.retweetCount) stringValue];
 }
 
 
@@ -54,5 +68,77 @@
 
     // Configure the view for the selected state
 }
+
+- (IBAction)didTapFavorite:(id)sender {
+    // TODO: Update the local tweet model
+    self.tweet.favorited = YES;
+    // TODO: Update cell UI
+    self.tweet.favoriteCount += 1;
+    // TODO: Send a POST request to the POST favorites/create endpoint
+    [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
+        if(error){
+             NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
+        }
+        else{
+            NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
+        }
+    }];
+
+}
+
+- (IBAction)didTapUnfavorite:(id)sender {
+    // TODO: Update the local tweet model
+    self.tweet.favorited = NO;
+    // TODO: Update cell UI
+    self.tweet.favoriteCount -= 1;
+    // TODO: Send a POST request to the POST favorites/create endpoint
+    [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
+        if(error){
+             NSLog(@"Error unfavoriting tweet: %@", error.localizedDescription);
+        }
+        else{
+            NSLog(@"Successfully unfavorited the following Tweet: %@", tweet.text);
+        }
+    }];
+}
+
+- (IBAction)didTapRT:(id)sender {
+    // TODO: Update the local tweet model
+    self.tweet.retweeted = YES;
+    // TODO: Update cell UI
+    self.tweet.retweetCount += 1;
+    // TODO: Send a POST request to the POST favorites/create endpoint
+    [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
+        if(error){
+             NSLog(@"Error retweeting tweet: %@", error.localizedDescription);
+        }
+        else{
+            NSLog(@"Successfully retweeted the following Tweet: %@", tweet.text);
+        }
+    }];
+
+    if (self.tweet.retweeted == YES) {
+        self.profileImage.image = [UIImage imageNamed:@"favor-icon-red"];
+    } else{
+        self.profileImage.image = [UIImage imageNamed:@"favor-icon"];
+    }
+}
+
+- (IBAction)didTapUNRT:(id)sender {
+    // TODO: Update the local tweet model
+    self.tweet.retweeted = NO;
+    // TODO: Update cell UI
+    self.tweet.retweetCount -= 1;
+    // TODO: Send a POST request to the POST favorites/create endpoint
+    [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
+        if(error){
+             NSLog(@"Error unretweeting tweet: %@", error.localizedDescription);
+        }
+        else{
+            NSLog(@"Successfully unretweeting the following Tweet: %@", tweet.text);
+        }
+    }];
+}
+
 
 @end
