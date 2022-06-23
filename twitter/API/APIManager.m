@@ -7,6 +7,7 @@
 //
 
 #import "APIManager.h"
+#import "Tweet.h"
 
 static NSString * const baseURLString = @"https://api.twitter.com";
 
@@ -31,17 +32,17 @@ static NSString * const baseURLString = @"https://api.twitter.com";
     
     // TODO: fix code below to pull API Keys from your new Keys.plist file
     
-    NSString *path = ;
-    NSDictionary *dict = ;
-    NSString *key = ;
-    NSString *secret = ;
+    NSString *path = [[NSBundle mainBundle] pathForResource: @"Keys" ofType: @"plist"] ;
+    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];
+    NSString *key = [dict objectForKey: @"consumer_key"];
+    NSString *secret = [dict objectForKey: @"consumer_secret"];
     
     // Check for launch arguments override
-    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"consumer-key"]) {
-        key = [[NSUserDefaults standardUserDefaults] stringForKey:@"consumer-key"];
+    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"consumer_key"]) {
+        key = [[NSUserDefaults standardUserDefaults] stringForKey:@"consumer_key"];
     }
-    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"consumer-secret"]) {
-        secret = [[NSUserDefaults standardUserDefaults] stringForKey:@"consumer-secret"];
+    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"consumer_secret"]) {
+        secret = [[NSUserDefaults standardUserDefaults] stringForKey:@"consumer_secret"];
     }
     
     self = [super initWithBaseURL:baseURL consumerKey:key consumerSecret:secret];
@@ -52,7 +53,7 @@ static NSString * const baseURLString = @"https://api.twitter.com";
 }
 
 - (void)getHomeTimelineWithCompletion:(void(^)(NSArray *tweets, NSError *error))completion {
-    
+    /*
     [self GET:@"1.1/statuses/home_timeline.json"
    parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable tweetDictionaries) {
        
@@ -74,6 +75,31 @@ static NSString * const baseURLString = @"https://api.twitter.com";
        
        completion(tweetDictionaries, error);
    }];
+    */
+    NSDictionary *parameters = @{@"tweet_mode":@"extended"};
+     
+    [self GET:@"1.1/statuses/home_timeline.json"
+        parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable tweetDictionaries) {
+            // Success
+            NSMutableArray *tweets = [Tweet tweetsWithArray:tweetDictionaries];
+            completion(tweets, nil);
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            // There was a problem
+            completion(nil, error);
+     }];
 }
+
+- (void)postStatusWithText:(NSString *)text completion:(void (^)(Tweet *, NSError *))completion {
+    NSString *urlString = @"1.1/statuses/update.json";
+    NSDictionary *parameters = @{@"status": text};
+    
+    [self POST:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable tweetDictionary) {
+        Tweet *tweet = [[Tweet alloc]initWithDictionary:tweetDictionary];
+        completion(tweet, nil);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        completion(nil, error);
+    }];
+}
+
 
 @end
