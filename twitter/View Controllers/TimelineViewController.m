@@ -37,6 +37,7 @@
     self.tweetTableView.dataSource = self;
     self.tweetTableView.delegate = self;
     self.tweetTableView.rowHeight = 250;
+//    self.tweetTableView.rowHeight = UITableViewAutomaticDimension;
     
     [self fechTweets];
     
@@ -45,6 +46,10 @@
     [self.refreshControl addTarget:self action:@selector(fechTweets) forControlEvents:UIControlEventValueChanged];    
     
 }
+
+//- (void) updateTextAttributesWithConversionHandler:(UITextAttributesConversionHandler)conversionHandler{
+    
+//}
 
 - (void) fechTweets{
         
@@ -127,14 +132,18 @@
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if([segue.identifier isEqualToString:@"composeSegue"]) {
+        UINavigationController *navigationController = [segue destinationViewController];
+        ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
+        composeController.delegate = self;
+
+    } else if([segue.identifier isEqualToString:@"detailsSegue"]) {
+        TweetCell *cell = sender;
+        DetailViewController *detailsVC = [segue destinationViewController];
+        detailsVC.tweet = cell.tweet;
+
+    }
     
-   // UINavigationController *navigationController = [segue destinationViewController];
-   // ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
-   // composeController.delegate = self;
-    
-    TweetCell *cell = sender;
-    DetailViewController *detailsVC = [segue destinationViewController];
-    detailsVC.tweet = cell.tweet;
 }
 
 

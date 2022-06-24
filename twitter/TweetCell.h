@@ -21,7 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *profileFavorite;
 @property (nonatomic, strong) Tweet *tweet;
 
-
 - (void) refreshData;
 
 

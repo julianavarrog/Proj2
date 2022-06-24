@@ -34,10 +34,15 @@
 - (void) refreshData{
     
     self.profileName.text = self.tweet.user.name;
-   //NSString *atName = @"@";
-    //NSString *screenName = [atName stringByAppendingString:self.tweet.user.screenName];
+    
+    NSString *atName = @"@";
+    NSString *screenName = [atName stringByAppendingString:self.tweet.user.screenName];
    
-    self.profileUsername.text = self.tweet.user.screenName;
+    
+    //self.profileUsername.text = self.tweet.user.screenName;
+    self.profileUsername.text = screenName;
+    
+    
     self.profileTweet.text = self.tweet.text;
     self.profileDate.text = self.tweet.createdAtString;
     
@@ -79,6 +84,7 @@
         else{
             NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
         }
+        
     }];
 }
 
