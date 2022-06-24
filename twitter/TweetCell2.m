@@ -9,7 +9,7 @@
 
 #import "TweetCell2.h"
 #import "Tweet.h"
-#import "TimelineViewController.h"
+#import "TimelineViewController2.h"
 #import "UIImageView+AFNetworking.h"
 #import "APIManager.h"
 #import "DateTools.h"
@@ -80,6 +80,7 @@
             }
             
         }];
+    [self refreshData];
 }
 
 
@@ -98,8 +99,9 @@
                 NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
             }
         }];
-}
+    [self refreshData];
 
+}
 
 
 

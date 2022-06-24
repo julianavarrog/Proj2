@@ -8,11 +8,11 @@
 
 #import "DetailViewController.h"
 #import "Tweet.h"
-#import "TimelineViewController.h"
+#import "TimelineViewController2.h"
 #import "UIImageView+AFNetworking.h"
 #import "APIManager.h"
 #import "DateTools.h"
-#import "TweetCell.h"
+#import "TweetCell2.h"
 
 @interface DetailViewController ()
 

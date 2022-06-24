@@ -7,8 +7,8 @@
 //
 
 #import "ComposeViewController.h"
-#import "TimelineViewController.h"
-#import "TweetCell.h"
+#import "TimelineViewController2.h"
+#import "TweetCell2.h"
 #import "APIManager.h"
 
 @interface ComposeViewController ()
@@ -49,6 +49,7 @@
         }
         [self.tweetTableView reloadData];
     }];
+    [self dismissViewControllerAnimated:true completion:nil];
 }
 
 

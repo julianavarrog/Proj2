@@ -38,8 +38,8 @@
     self.tweetTableView.dataSource = self;
     self.tweetTableView.delegate = self;
 // self.tweetTableView.rowHeight = 250;
-//    self.tweetTableView.rowHeight = UITableViewAutomaticDimension;
-    
+    self.tweetTableView.rowHeight = UITableViewAutomaticDimension;
+    self.tweetTableView.estimatedRowHeight = 150;
     [self fechTweets];
     
     self.refreshControl = [[UIRefreshControl alloc] init];
@@ -47,10 +47,6 @@
     [self.refreshControl addTarget:self action:@selector(fechTweets) forControlEvents:UIControlEventValueChanged];
     
 }
-
-//- (void) updateTextAttributesWithConversionHandler:(UITextAttributesConversionHandler)conversionHandler{
-    
-//}
 
 - (void) fechTweets{
         
@@ -131,7 +127,6 @@
     [self.presentedViewController dismissViewControllerAnimated:YES completion:^{}];
     
 }
-
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
