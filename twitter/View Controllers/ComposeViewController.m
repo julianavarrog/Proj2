@@ -28,7 +28,10 @@
 }
 
 - (void)viewDidLoad {
+    NSLog(@" opened Compose ");
+
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view.
         
 }
@@ -44,10 +47,8 @@
         } else {
                 NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
         }
+        [self.tweetTableView reloadData];
     }];
-    [self.tweetTableView reloadData];
-    [self dismissViewControllerAnimated:true completion:nil];
-
 }
 
 

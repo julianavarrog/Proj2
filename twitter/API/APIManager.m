@@ -112,7 +112,7 @@ static NSString * const baseURLString = @"https://api.twitter.com";
         completion(nil, error);
     }];
 }
-
+/*
 - (void) unfavorite: (Tweet *)tweet completion: (void (^)(Tweet *,NSError*))completion{
      NSString *urlString = @"1.1/favorites/destroy.json";
      NSDictionary *parameters = @{@"id": tweet.idStr};
@@ -123,6 +123,7 @@ static NSString * const baseURLString = @"https://api.twitter.com";
          completion(nil, error);
      }];
 }
+ */
 
 - (void) rt: (Tweet *)tweet completion: (void (^)(Tweet *,NSError*))completion{
      NSString *urlString = @"1.1/statuses/retweet/:id.json";
@@ -135,6 +136,7 @@ static NSString * const baseURLString = @"https://api.twitter.com";
      }];
 }
 
+/*
 - (void) unrt: (Tweet *)tweet completion: (void (^)(Tweet *,NSError*))completion{
      NSString *urlString = @"1.1/statuses/unretweet/:id.json";
      NSDictionary *parameters = @{@"id": tweet.idStr};
@@ -145,6 +147,6 @@ static NSString * const baseURLString = @"https://api.twitter.com";
          completion(nil, error);
      }];
 }
-
+*/
 
 @end

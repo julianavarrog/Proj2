@@ -10,13 +10,10 @@
 #import "Tweet.h"
 #import "TimelineViewController.h"
 #import "UIImageView+AFNetworking.h"
-# import "APIManager.h"
+#import "APIManager.h"
+#import "DateTools.h"
 
 @implementation TweetCell
-
-
-
-
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -55,6 +52,8 @@
     NSURL *url = [NSURL URLWithString:URLString];
     NSData *urlData = [NSData dataWithContentsOfURL:url];
     self.profileImage.image = [UIImage imageWithData:urlData];
+    self.profileImage.layer.cornerRadius  = self.profileImage.frame.size.width/2;
+
     
     
    // favorite and retweet
@@ -62,13 +61,11 @@
     self.profileRetweet.text = [@(self.tweet.retweetCount) stringValue];
 }
 
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
 }
-
 - (IBAction)didTapFavorite:(id)sender {
     // TODO: Update the local tweet model
     self.tweet.favorited = YES;
@@ -83,9 +80,26 @@
             NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
         }
     }];
-
 }
 
+- (IBAction)didTapRT:(id)sender {
+    // TODO: Update the local tweet model
+    self.tweet.retweeted = YES;
+    // TODO: Update cell UI
+    self.tweet.retweetCount += 1;
+    // TODO: Send a POST request to the POST favorites/create endpoint
+    
+    [[APIManager shared] rt:self.tweet completion:^(Tweet *tweet, NSError *error) {
+        if(error){
+             NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
+        }
+        else{
+            NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
+        }
+    }];
+}
+
+/*
 - (IBAction)didTapUnfavorite:(id)sender {
     // TODO: Update the local tweet model
     self.tweet.favorited = NO;
@@ -101,29 +115,9 @@
         }
     }];
 }
-
-- (IBAction)didTapRT:(id)sender {
-    // TODO: Update the local tweet model
-    self.tweet.retweeted = YES;
-    // TODO: Update cell UI
-    self.tweet.retweetCount += 1;
-    // TODO: Send a POST request to the POST favorites/create endpoint
-    [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
-        if(error){
-             NSLog(@"Error retweeting tweet: %@", error.localizedDescription);
-        }
-        else{
-            NSLog(@"Successfully retweeted the following Tweet: %@", tweet.text);
-        }
-    }];
-
-    if (self.tweet.retweeted == YES) {
-        self.profileImage.image = [UIImage imageNamed:@"favor-icon-red"];
-    } else{
-        self.profileImage.image = [UIImage imageNamed:@"favor-icon"];
-    }
-}
-
+ 
+ */
+/*
 - (IBAction)didTapUNRT:(id)sender {
     // TODO: Update the local tweet model
     self.tweet.retweeted = NO;
@@ -139,6 +133,6 @@
         }
     }];
 }
-
+ */
 
 @end

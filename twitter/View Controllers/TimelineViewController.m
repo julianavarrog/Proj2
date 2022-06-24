@@ -13,6 +13,7 @@
 #import "TweetCell.h"
 #import "Tweet.h"
 #import "ComposeViewController.h"
+#import "DetailViewController.h"
 
 
 
@@ -39,10 +40,9 @@
     
     [self fechTweets];
     
-    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    [self.tweetTableView insertSubview:refreshControl atIndex:0];
-    [refreshControl addTarget:self action:@selector(fechTweets) forControlEvents:UIControlEventValueChanged];
-    [self.refreshControl endRefreshing];
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.tweetTableView insertSubview:self.refreshControl atIndex:0];
+    [self.refreshControl addTarget:self action:@selector(fechTweets) forControlEvents:UIControlEventValueChanged];    
     
 }
 
@@ -93,32 +93,6 @@
     return cell;
 }
      
-    /*
-     
-    NSString *URLString = tweet.user.profilePicture;
-    NSURL *url = [NSURL URLWithString:URLString];
-    NSData *urlData = [NSData dataWithContentsOfURL:url];
-    
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil) {
-               NSLog(@"%@", [error localizedDescription]);
-           }
-           else {
-               NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-               NSLog(@"%@", dataDictionary);// log an object with the %@ formatter.
-               
-               NSArray *dictionaries = dataDictionary[@"text"];
-               for (NSDictionary *dictionary in dictionaries) {
-                   Tweet *tweet = [[Tweet alloc] initWithDictionary:dictionary];// Call the Movie initializer here
-                   [self.tweets addObject:tweet];
-               }
-               
-               [self.tableView reloadData];
-           }
-       
-    [task resume];
-}
-*/
 /*
 #pragma mark - Navigation
 
@@ -145,15 +119,22 @@
 }
 
 - (void) didTweet:(Tweet *)tweet{
-    [self.tweets addObject:tweet];
+    [self.tweets insertObject:tweet atIndex:0];
     [self.tweetTableView reloadData];
+    [self.presentedViewController dismissViewControllerAnimated:YES completion:^{}];
+    
 }
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-   UINavigationController *navigationController = [segue destinationViewController];
-   ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
-   composeController.delegate = self;
+    
+   // UINavigationController *navigationController = [segue destinationViewController];
+   // ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
+   // composeController.delegate = self;
+    
+    TweetCell *cell = sender;
+    DetailViewController *detailsVC = [segue destinationViewController];
+    detailsVC.tweet = cell.tweet;
 }
 
 

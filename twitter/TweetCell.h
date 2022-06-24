@@ -19,7 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *profileTweet;
 @property (weak, nonatomic) IBOutlet UILabel *profileRetweet;
 @property (weak, nonatomic) IBOutlet UILabel *profileFavorite;
-@property (weak, nonatomic) IBOutlet UIImageView *profileVerified;
 @property (nonatomic, strong) Tweet *tweet;
 
 
