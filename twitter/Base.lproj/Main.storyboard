@@ -266,7 +266,6 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="retweet-icon" title=""/>
                                 <connections>
-                                    <action selector="didTapRT:" destination="vfq-Hr-KkI" eventType="touchUpInside" id="Ls3-tj-H4P"/>
                                     <action selector="didTapRT:" destination="a0W-Z9-6CQ" eventType="touchUpInside" id="lgH-nP-IiR"/>
                                 </connections>
                             </button>
@@ -282,7 +281,6 @@
                                 <buttonConfiguration key="configuration" style="plain" image="favor-icon" title=""/>
                                 <connections>
                                     <action selector="didTapFavorite:" destination="a0W-Z9-6CQ" eventType="touchUpInside" id="YuX-ux-Ymv"/>
-                                    <action selector="didTapFavorite:" destination="vfq-Hr-KkI" eventType="touchUpInside" id="rGh-r3-qCx"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z8T-Pi-vwW">
@@ -348,7 +346,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aZ6-KQ-poj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="vfq-Hr-KkI" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3676" y="-80.50974512743629"/>
         </scene>

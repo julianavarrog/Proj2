@@ -34,16 +34,30 @@
     //self.profileUsername.text = self.tweet.user.screenName;
     self.profileUsername.text = screenName;
     
+    NSDataDetector* detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
+    NSArray* matches = [detector matchesInString:self.tweet.text options:0 range:NSMakeRange(0, [self.tweet.text length])];
+
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:self.tweet.text];
+    for (NSTextCheckingResult *match in matches){
+        if ([match resultType] == NSTextCheckingTypeLink){
+            NSURL *url = [match URL];
+            [str addAttribute: NSLinkAttributeName value: url.description range: match.range];
+        }
+    }
     
-    self.profileTweet.text = self.tweet.text;
+    
+    self.profileTweet.attributedText = str;
+    self.profileTweet.userInteractionEnabled = YES;
+    [self.profileTweet addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action: @selector(handelTapOnLabel:)]];
+    
+    
     self.profileDate.text = self.tweet.createdAtString;
-    
     
     // numbers
     self.profileRetweet.text = [NSString stringWithFormat:@"%i", self.tweet.retweetCount];
     self.profileFavorite.text = [NSString stringWithFormat:@"%i", self.tweet.favoriteCount];
 
-    
+
     //image stuff
     NSString *URLString = self.tweet.user.profilePicture;
     NSURL *url = [NSURL URLWithString:URLString];
@@ -51,7 +65,6 @@
     self.profileImage.image = [UIImage imageWithData:urlData];
     self.profileImage.layer.cornerRadius  = self.profileImage.frame.size.width/2;
 
-    
     
    // favorite and retweet
     self.profileFavorite.text = [@(self.tweet.favoriteCount) stringValue];
@@ -72,9 +85,6 @@
         UIImage *btnImage2 =[UIImage imageNamed:@"retweet-icon"];
         [self.retweetButton setImage:btnImage2 forState:UIControlStateNormal];
     }
-    
-    
-    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -83,7 +93,16 @@
     // Configure the view for the selected state
 }
 
-
+- (void)handelTapOnLabel:(UITapGestureRecognizer *)tapGesture{
+    NSDataDetector* detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
+    NSArray* matches = [detector matchesInString:self.tweet.text options:0 range:NSMakeRange(0, [self.tweet.text length])];
+    for (NSTextCheckingResult *match in matches){
+        if ([match resultType] == NSTextCheckingTypeLink){
+            NSURL *url = [match URL];
+            [[UIApplication sharedApplication] openURL: url];
+        }
+    }
+}
 - (IBAction)didTapFavorite:(id)sender {
         // TODO: Update the local tweet model
         self.tweet.favorited = !self.tweet.favorited;
@@ -131,44 +150,5 @@
         }];
     [self refreshData];
 }
-
-
-
-
-/*
-- (IBAction)didTapUnfavorite:(id)sender {
-    // TODO: Update the local tweet model
-    self.tweet.favorited = NO;
-    // TODO: Update cell UI
-    self.tweet.favoriteCount -= 1;
-    // TODO: Send a POST request to the POST favorites/create endpoint
-    [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
-        if(error){
-             NSLog(@"Error unfavoriting tweet: %@", error.localizedDescription);
-        }
-        else{
-            NSLog(@"Successfully unfavorited the following Tweet: %@", tweet.text);
-        }
-    }];
-}
- 
- */
-/*
-- (IBAction)didTapUNRT:(id)sender {
-    // TODO: Update the local tweet model
-    self.tweet.retweeted = NO;
-    // TODO: Update cell UI
-    self.tweet.retweetCount -= 1;
-    // TODO: Send a POST request to the POST favorites/create endpoint
-    [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
-        if(error){
-             NSLog(@"Error unretweeting tweet: %@", error.localizedDescription);
-        }
-        else{
-            NSLog(@"Successfully unretweeting the following Tweet: %@", tweet.text);
-        }
-    }];
-}
- */
 
 @end

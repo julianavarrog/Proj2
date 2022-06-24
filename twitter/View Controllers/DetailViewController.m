@@ -25,13 +25,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.detailName.text = self.tweet.user.name;
-   //NSString *atName = @"@";
-    //NSString *screenName = [atName stringByAppendingString:self.tweet.user.screenName];
+    NSString *atName = @"@";
+    NSString *screenName = [atName stringByAppendingString:self.tweet.user.screenName];
    
-    self.detailName.text = self.tweet.user.screenName;
     self.detailText.text = self.tweet.text;
     self.detailDate.text = self.tweet.createdAtString;
-    
+    self.detailUsername.text = screenName;
     
     // numbers
     self.detailRTText.text = [NSString stringWithFormat:@"%i", self.tweet.retweetCount];
