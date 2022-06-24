@@ -3,10 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1028092228661FC600F0D500 /* TimelineViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = 1028092128661FC600F0D500 /* TimelineViewController2.m */; };
+		102809252866214B00F0D500 /* TweetCell2.m in Sources */ = {isa = PBXBuildFile; fileRef = 102809242866214B00F0D500 /* TweetCell2.m */; };
 		104673D9286413970095BD06 /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 104673D8286413970095BD06 /* ComposeViewController.m */; };
 		104673DC286509560095BD06 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 104673DB286509560095BD06 /* DetailViewController.m */; };
 		109CE50B28611FCD00E79A86 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 109CE50A28611FCD00E79A86 /* Keys.plist */; };
@@ -26,6 +28,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1028092028661FC600F0D500 /* TimelineViewController2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimelineViewController2.h; sourceTree = "<group>"; };
+		1028092128661FC600F0D500 /* TimelineViewController2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimelineViewController2.m; sourceTree = "<group>"; };
+		102809232866214B00F0D500 /* TweetCell2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TweetCell2.h; sourceTree = "<group>"; };
+		102809242866214B00F0D500 /* TweetCell2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TweetCell2.m; sourceTree = "<group>"; };
 		104673D7286413970095BD06 /* ComposeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
 		104673D8286413970095BD06 /* ComposeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ComposeViewController.m; sourceTree = "<group>"; };
 		104673DA286509560095BD06 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
@@ -113,6 +119,8 @@
 				109CE50A28611FCD00E79A86 /* Keys.plist */,
 				109CE51828627CA300E79A86 /* TweetCell.h */,
 				109CE51928627CA300E79A86 /* TweetCell.m */,
+				102809232866214B00F0D500 /* TweetCell2.h */,
+				102809242866214B00F0D500 /* TweetCell2.m */,
 			);
 			path = twitter;
 			sourceTree = "<group>";
@@ -157,6 +165,8 @@
 				104673D8286413970095BD06 /* ComposeViewController.m */,
 				104673DA286509560095BD06 /* DetailViewController.h */,
 				104673DB286509560095BD06 /* DetailViewController.m */,
+				1028092028661FC600F0D500 /* TimelineViewController2.h */,
+				1028092128661FC600F0D500 /* TimelineViewController2.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -198,7 +208,7 @@
 		6AD278CD20BC4B950085BC29 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1340;
 				ORGANIZATIONNAME = "Emerson Malca";
 				TargetAttributes = {
 					6AD278D420BC4B950085BC29 = {
@@ -281,6 +291,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1028092228661FC600F0D500 /* TimelineViewController2.m in Sources */,
 				109CE51A28627CA300E79A86 /* TweetCell.m in Sources */,
 				6AD278F320BCA6020085BC29 /* BDBOAuth1SessionManager+SFAuthenticationSession.m in Sources */,
 				109CE50E2861430800E79A86 /* User.m in Sources */,
@@ -292,6 +303,7 @@
 				6AD278DA20BC4B950085BC29 /* AppDelegate.m in Sources */,
 				6AD278F620BCB68B0085BC29 /* APIManager.m in Sources */,
 				6AD2790920BCC04D0085BC29 /* TimelineViewController.m in Sources */,
+				102809252866214B00F0D500 /* TweetCell2.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,6 +355,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -356,7 +369,7 @@
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_NO_COMMON_BLOCKS = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -368,7 +381,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -401,6 +414,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -413,14 +427,14 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_NO_COMMON_BLOCKS = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

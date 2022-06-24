@@ -1,23 +1,24 @@
 //
-//  TimelineViewController.m
+//  TimelineViewController2.m
 //  twitter
 //
 //  Created by emersonmalca on 5/28/18.
 //  Copyright © 2018 Emerson Malca. All rights reserved.
 //
 
-#import "TimelineViewController.h"
+#import "TimelineViewController2.h"
 #import "APIManager.h"
 #import "AppDelegate.h"
 #import "LoginViewController.h"
-#import "TweetCell.h"
+#import "TweetCell2.h"
 #import "Tweet.h"
 #import "ComposeViewController.h"
 #import "DetailViewController.h"
 
 
 
-@interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface TimelineViewController2 () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
+
 - (IBAction)didTapLogout:(id)sender;
 @property (strong, nonatomic) IBOutlet UITableView * tweetTableView;
 @property (strong, nonatomic) NSMutableArray * tweets;
@@ -28,7 +29,7 @@
 
 @end
 
-@implementation TimelineViewController
+@implementation TimelineViewController2
 
 - (void)viewDidLoad {
     
@@ -36,14 +37,14 @@
     
     self.tweetTableView.dataSource = self;
     self.tweetTableView.delegate = self;
-    self.tweetTableView.rowHeight = 250;
+// self.tweetTableView.rowHeight = 250;
 //    self.tweetTableView.rowHeight = UITableViewAutomaticDimension;
     
     [self fechTweets];
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.tweetTableView insertSubview:self.refreshControl atIndex:0];
-    [self.refreshControl addTarget:self action:@selector(fechTweets) forControlEvents:UIControlEventValueChanged];    
+    [self.refreshControl addTarget:self action:@selector(fechTweets) forControlEvents:UIControlEventValueChanged];
     
 }
 
@@ -84,7 +85,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
+    TweetCell2 *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell2"];
     if (self.isFiltered) {
         cell.tweet = self.filteredTweets[indexPath.row];
         [cell refreshData];
@@ -122,12 +123,15 @@
     [[APIManager shared] logout];
 }
 
+
+
 - (void) didTweet:(Tweet *)tweet{
     [self.tweets insertObject:tweet atIndex:0];
     [self.tweetTableView reloadData];
     [self.presentedViewController dismissViewControllerAnimated:YES completion:^{}];
     
 }
+
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -137,7 +141,7 @@
         composeController.delegate = self;
 
     } else if([segue.identifier isEqualToString:@"detailsSegue"]) {
-        TweetCell *cell = sender;
+        TweetCell2 *cell = sender;
         DetailViewController *detailsVC = [segue destinationViewController];
         detailsVC.tweet = cell.tweet;
 

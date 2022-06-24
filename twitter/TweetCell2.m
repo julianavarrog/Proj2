@@ -1,3 +1,4 @@
+
 //
 //  TweetCell.m
 //  twitter
@@ -6,14 +7,14 @@
 //  Copyright © 2022 Emerson Malca. All rights reserved.
 //
 
-#import "TweetCell.h"
+#import "TweetCell2.h"
 #import "Tweet.h"
 #import "TimelineViewController.h"
 #import "UIImageView+AFNetworking.h"
 #import "APIManager.h"
 #import "DateTools.h"
 
-@implementation TweetCell
+@implementation TweetCell2
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -62,39 +63,46 @@
 
     // Configure the view for the selected state
 }
+
+
 - (IBAction)didTapFavorite:(id)sender {
-    // TODO: Update the local tweet model
-    self.tweet.favorited = YES;
-    // TODO: Update cell UI
-    self.tweet.favoriteCount += 1;
-    // TODO: Send a POST request to the POST favorites/create endpoint
-    [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
-        if(error){
-             NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
-        }
-        else{
-            NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
-        }
-        
-    }];
+        // TODO: Update the local tweet model
+        self.tweet.favorited = YES;
+        // TODO: Update cell UI
+        self.tweet.favoriteCount += 1;
+        // TODO: Send a POST request to the POST favorites/create endpoint
+        [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
+            if(error){
+                 NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
+            }
+            else{
+                NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
+            }
+            
+        }];
 }
 
+
+
 - (IBAction)didTapRT:(id)sender {
-    // TODO: Update the local tweet model
-    self.tweet.retweeted = YES;
-    // TODO: Update cell UI
-    self.tweet.retweetCount += 1;
-    // TODO: Send a POST request to the POST favorites/create endpoint
-    
-    [[APIManager shared] rt:self.tweet completion:^(Tweet *tweet, NSError *error) {
-        if(error){
-             NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
-        }
-        else{
-            NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
-        }
-    }];
+        // TODO: Update the local tweet model
+        self.tweet.retweeted = YES;
+        // TODO: Update cell UI
+        self.tweet.retweetCount += 1;
+        // TODO: Send a POST request to the POST favorites/create endpoint
+        [[APIManager shared] rt:self.tweet completion:^(Tweet *tweet, NSError *error) {
+            if(error){
+                 NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
+            }
+            else{
+                NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
+            }
+        }];
 }
+
+
+
+
 
 /*
 - (IBAction)didTapUnfavorite:(id)sender {
