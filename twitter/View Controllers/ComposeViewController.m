@@ -11,7 +11,7 @@
 #import "TweetCell2.h"
 #import "APIManager.h"
 
-@interface ComposeViewController ()
+@interface ComposeViewController () <UITextViewDelegate>
 @property (strong, nonatomic) NSMutableArray * tweets;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (strong, nonatomic) IBOutlet UITableView * tweetTableView;
@@ -32,6 +32,10 @@
 
     [super viewDidLoad];
     
+    self.tweetTextBox.delegate = self;
+    self.tweetCounter.text = [NSString stringWithFormat:@"%lu", self.tweetTextBox.text.length];
+    [super viewDidLoad];
+    
     // Do any additional setup after loading the view.
         
 }
@@ -50,6 +54,10 @@
         [self.tweetTableView reloadData];
     }];
     [self dismissViewControllerAnimated:true completion:nil];
+}
+
+-(void) textViewDidChange:(UITextView *) textView{
+    self.tweetCounter.text = [NSString stringWithFormat:@"%lu",textView.text.length];
 }
 
 

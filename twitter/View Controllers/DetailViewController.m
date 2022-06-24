@@ -44,21 +44,45 @@
     NSData *urlData = [NSData dataWithContentsOfURL:url];
     self.detailImage.image = [UIImage imageWithData:urlData];
     self.detailImage.layer.cornerRadius  = self.detailImage.frame.size.width/2;
+    
+    // favorite and retweet
+     self.detailFavText.text = [@(self.tweet.favoriteCount) stringValue];
+     self.detailRTText.text = [@(self.tweet.retweetCount) stringValue];
+}
 
+- (void) refreshData{
+    
+    if (self.tweet.favorited){
+        UIImage *btnImage =[UIImage imageNamed:@"favor-icon-red"];
+        [self.detailFavButton setImage:btnImage forState:UIControlStateNormal];
+    }else{
+        UIImage *btnImage =[UIImage imageNamed:@"favor-icon"];
+        [self.detailFavButton setImage:btnImage forState:UIControlStateNormal];
+    }
+    
+    if (self.tweet.retweeted){
+        UIImage *btnImage2 =[UIImage imageNamed:@"retweet-icon-green"];
+        [self.detailRTButton setImage:btnImage2 forState:UIControlStateNormal];
+    }else{
+        UIImage *btnImage2 =[UIImage imageNamed:@"retweet-icon"];
+        [self.detailRTButton setImage:btnImage2 forState:UIControlStateNormal];
+    }
     
     
-   // favorite and retweet
-    self.detailFavText.text = [@(self.tweet.favoriteCount) stringValue];
-    self.detailRTText.text = [@(self.tweet.retweetCount) stringValue];
-
 }
 
 - (IBAction)didTapFavorite:(id)sender {
     // TODO: Update the local tweet model
-    self.tweet.favorited = YES;
+    self.tweet.favorited = !self.tweet.favorited;
     // TODO: Update cell UI
-    self.tweet.favoriteCount += 1;
+    if (self.tweet.favorited){
+        self.tweet.favoriteCount += 1;
+    }else{
+        self.tweet.favoriteCount -= 1;
+
+    }
     // TODO: Send a POST request to the POST favorites/create endpoint
+    
     [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
         if(error){
              NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
@@ -66,16 +90,22 @@
         else{
             NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
         }
+        
     }];
+[self refreshData];
 }
 
 - (IBAction)didTapRT:(id)sender {
     // TODO: Update the local tweet model
-    self.tweet.retweeted = YES;
+    self.tweet.retweeted = !self.tweet.retweeted;
     // TODO: Update cell UI
-    self.tweet.retweetCount += 1;
+    if (self.tweet.retweeted){
+        self.tweet.retweetCount += 1;
+        
+    } else {
+        self.tweet.retweetCount -= 1;
+    }
     // TODO: Send a POST request to the POST favorites/create endpoint
-    
     [[APIManager shared] rt:self.tweet completion:^(Tweet *tweet, NSError *error) {
         if(error){
              NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
@@ -84,6 +114,7 @@
             NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
         }
     }];
+[self refreshData];
 }
 
 /*

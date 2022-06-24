@@ -56,6 +56,25 @@
    // favorite and retweet
     self.profileFavorite.text = [@(self.tweet.favoriteCount) stringValue];
     self.profileRetweet.text = [@(self.tweet.retweetCount) stringValue];
+    
+    if (self.tweet.favorited){
+        UIImage *btnImage =[UIImage imageNamed:@"favor-icon-red"];
+        [self.favoriteButton setImage:btnImage forState:UIControlStateNormal];
+    }else{
+        UIImage *btnImage =[UIImage imageNamed:@"favor-icon"];
+        [self.favoriteButton setImage:btnImage forState:UIControlStateNormal];
+    }
+    
+    if (self.tweet.retweeted){
+        UIImage *btnImage2 =[UIImage imageNamed:@"retweet-icon-green"];
+        [self.retweetButton setImage:btnImage2 forState:UIControlStateNormal];
+    }else{
+        UIImage *btnImage2 =[UIImage imageNamed:@"retweet-icon"];
+        [self.retweetButton setImage:btnImage2 forState:UIControlStateNormal];
+    }
+    
+    
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -67,10 +86,16 @@
 
 - (IBAction)didTapFavorite:(id)sender {
         // TODO: Update the local tweet model
-        self.tweet.favorited = YES;
+        self.tweet.favorited = !self.tweet.favorited;
         // TODO: Update cell UI
-        self.tweet.favoriteCount += 1;
+        if (self.tweet.favorited){
+            self.tweet.favoriteCount += 1;
+        }else{
+            self.tweet.favoriteCount -= 1;
+
+        }
         // TODO: Send a POST request to the POST favorites/create endpoint
+        
         [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
             if(error){
                  NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
@@ -87,9 +112,14 @@
 
 - (IBAction)didTapRT:(id)sender {
         // TODO: Update the local tweet model
-        self.tweet.retweeted = YES;
+        self.tweet.retweeted = !self.tweet.retweeted;
         // TODO: Update cell UI
-        self.tweet.retweetCount += 1;
+        if (self.tweet.retweeted){
+            self.tweet.retweetCount += 1;
+            
+        } else {
+            self.tweet.retweetCount -= 1;
+        }
         // TODO: Send a POST request to the POST favorites/create endpoint
         [[APIManager shared] rt:self.tweet completion:^(Tweet *tweet, NSError *error) {
             if(error){
@@ -100,7 +130,6 @@
             }
         }];
     [self refreshData];
-
 }
 
 
