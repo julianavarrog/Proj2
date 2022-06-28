@@ -52,9 +52,8 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories: 
 
-https://www.veed.io/view/20bd5f9d-411a-4207-a1a0-340883760ea9
-
-<img src='https://www.veed.io/view/20bd5f9d-411a-4207-a1a0-340883760ea9' title='TweeterDemo' width='' alt='Video Walkthrough' />
+https://pxl.cl/26L1l
+<img src='https://pxl.cl/26L1l' title='TweeterDemo' width='' alt='Video Walkthrough' />
 
 
 GIF created with [Kap](https://getkap.co/).
