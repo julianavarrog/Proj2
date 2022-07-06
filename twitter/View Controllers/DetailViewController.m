@@ -20,7 +20,6 @@
 
 @implementation DetailViewController
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -36,7 +35,6 @@
     self.detailRTText.text = [NSString stringWithFormat:@"%i", self.tweet.retweetCount];
     self.detailFavText.text = [NSString stringWithFormat:@"%i", self.tweet.favoriteCount];
 
-    
     //image stuff
     NSString *URLString = self.tweet.user.profilePicture;
     NSURL *url = [NSURL URLWithString:URLString];
@@ -50,7 +48,6 @@
 }
 
 - (void) refreshData{
-    
     if (self.tweet.favorited){
         UIImage *btnImage =[UIImage imageNamed:@"favor-icon-red"];
         [self.detailFavButton setImage:btnImage forState:UIControlStateNormal];
@@ -66,8 +63,6 @@
         UIImage *btnImage2 =[UIImage imageNamed:@"retweet-icon"];
         [self.detailRTButton setImage:btnImage2 forState:UIControlStateNormal];
     }
-    
-    
 }
 
 - (IBAction)didTapFavorite:(id)sender {
@@ -78,7 +73,6 @@
         self.tweet.favoriteCount += 1;
     }else{
         self.tweet.favoriteCount -= 1;
-
     }
     // TODO: Send a POST request to the POST favorites/create endpoint
     
@@ -115,15 +109,5 @@
     }];
 [self refreshData];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

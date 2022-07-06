@@ -15,8 +15,6 @@
 #import "ComposeViewController.h"
 #import "DetailViewController.h"
 
-
-
 @interface TimelineViewController2 () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
 - (IBAction)didTapLogout:(id)sender;
@@ -37,15 +35,13 @@
     
     self.tweetTableView.dataSource = self;
     self.tweetTableView.delegate = self;
-// self.tweetTableView.rowHeight = 250;
     self.tweetTableView.rowHeight = UITableViewAutomaticDimension;
     self.tweetTableView.estimatedRowHeight = 150;
     [self fechTweets];
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.tweetTableView insertSubview:self.refreshControl atIndex:0];
-    [self.refreshControl addTarget:self action:@selector(fechTweets) forControlEvents:UIControlEventValueChanged];
-    
+    [self.refreshControl addTarget:self action:@selector(fechTweets) forControlEvents:UIControlEventValueChanged];   
 }
 
 - (void) fechTweets{
@@ -68,8 +64,6 @@
     [self.refreshControl endRefreshing];
 }
 
-
-     
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:
 (NSInteger)section{
     if (self.isFiltered) {
@@ -95,15 +89,7 @@
     return cell;
 }
      
-/*
 #pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -119,15 +105,11 @@
     [[APIManager shared] logout];
 }
 
-
-
 - (void) didTweet:(Tweet *)tweet{
     [self.tweets insertObject:tweet atIndex:0];
     [self.tweetTableView reloadData];
     [self.presentedViewController dismissViewControllerAnimated:YES completion:^{}];
-    
 }
-
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([segue.identifier isEqualToString:@"composeSegue"]) {
@@ -144,6 +126,4 @@
     
 }
 
-
 @end
-    
