@@ -19,7 +19,6 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    
 }
 
 
@@ -30,8 +29,6 @@
     NSString *atName = @"@";
     NSString *screenName = [atName stringByAppendingString:self.tweet.user.screenName];
    
-    
-    //self.profileUsername.text = self.tweet.user.screenName;
     self.profileUsername.text = screenName;
     
     NSDataDetector* detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
@@ -45,18 +42,15 @@
         }
     }
     
-    
     self.profileTweet.attributedText = str;
     self.profileTweet.userInteractionEnabled = YES;
     [self.profileTweet addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action: @selector(handelTapOnLabel:)]];
-    
     
     self.profileDate.text = self.tweet.createdAtString;
     
     // numbers
     self.profileRetweet.text = [NSString stringWithFormat:@"%i", self.tweet.retweetCount];
     self.profileFavorite.text = [NSString stringWithFormat:@"%i", self.tweet.favoriteCount];
-
 
     //image stuff
     NSString *URLString = self.tweet.user.profilePicture;
@@ -65,7 +59,6 @@
     self.profileImage.image = [UIImage imageWithData:urlData];
     self.profileImage.layer.cornerRadius  = self.profileImage.frame.size.width/2;
 
-    
    // favorite and retweet
     self.profileFavorite.text = [@(self.tweet.favoriteCount) stringValue];
     self.profileRetweet.text = [@(self.tweet.retweetCount) stringValue];
@@ -89,7 +82,6 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
     // Configure the view for the selected state
 }
 
@@ -113,7 +105,8 @@
             self.tweet.favoriteCount -= 1;
 
         }
-        // TODO: Send a POST request to the POST favorites/create endpoint
+        
+       // TODO: Send a POST request to the POST favorites/create endpoint
         
         [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
             if(error){
